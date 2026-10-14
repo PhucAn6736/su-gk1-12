@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Cương Ôn Tập Lịch Sử 12 - Giữa Kì 1 (Full Tất Cả Câu Hỏi)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .correct-answer { background-color: #dcfce7 !important; border-color: #16a34a !important; color: #166534; font-weight: 500; }
+        .incorrect-answer { background-color: #fee2e2 !important; border-color: #dc2626 !important; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <header class="bg-white shadow-md rounded-2xl p-6 mb-8 text-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-blue-700 mb-2">ĐỀ CƯƠNG ÔN TẬP GIỮA KÌ 1 LỊCH SỬ 12</h1>
+            <p class="text-slate-600 text-sm md:text-base">Hệ thống toàn bộ câu hỏi trắc nghiệm theo từng bài, có đáp án chuẩn xác và bảng chọn câu hỏi tương tác.</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar: Bảng chọn câu hỏi (order-last trên mobile để nằm dưới, order-first trên lg để nằm bên trái) -->
+            <div class="lg:col-span-1 order-last lg:order-first bg-white p-6 rounded-2xl shadow-md h-fit lg:sticky lg:top-6">
+                <div class="flex justify-between items-center mb-4 border-b pb-2">
+                    <h2 class="text-lg font-bold text-slate-700">Bảng Chọn Câu Hỏi</h2>
+                    <button onclick="toggleGrid()" class="text-xs text-blue-600 font-semibold lg:hidden underline">Thu gọn/Mở</button>
+                </div>
+                <div class="flex flex-wrap gap-2 mb-4 text-xs font-semibold">
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 bg-slate-200 inline-block rounded"></span> Chưa làm</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 bg-green-500 inline-block rounded"></span> Đúng</span>
+                    <span class="flex items-center gap-1"><span class="w-3 h-3 bg-red-500 inline-block rounded"></span> Sai</span>
+                </div>
+                <div id="question-grid" class="grid grid-cols-5 gap-2 max-h-[40vh] lg:max-h-[60vh] overflow-y-auto p-1">
+                    <!-- Dynamic Grid Buttons -->
+                </div>
+                <button onclick="submitQuiz()" class="w-full mt-6 bg-blue-600 text-white font-semibold py-2.5 px-4 rounded-xl hover:bg-blue-700 transition shadow">
+                    Nộp Bài & Xem Điểm
+                </button>
+                <div id="score-display" class="mt-4 text-center font-bold text-lg text-blue-600"></div>
+            </div>
+
+            <!-- Main Content: Danh sách câu hỏi phân theo bài (order-first trên mobile để lên trên) -->
+            <div class="lg:col-span-3 order-first lg:order-last space-y-8" id="quiz-container">
+                <!-- Dynamic Questions by Lesson -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const lessonsData = [
+            {
+                lessonName: "BÀI 1. LIÊN HỢP QUỐC",
+                questions: [
+                    { id: 1, q: "Câu 1. Một trong những mục tiêu hoạt động của tổ chức Liên hợp quốc là", opts: ["Thúc đẩy quan hệ hữu nghị giữa các quốc gia.", "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.", "Xây dựng một tổ chức vững mạnh về quân sự, phát triển về kinh tế.", "Thúc đẩy và hỗ trợ các quốc gia phát triển vũ khí hạt nhân."], ans: 0 },
+                    { id: 2, q: "Câu 2. Một trong những mục tiêu hoạt động của tổ chức Liên hợp quốc là", opts: ["Duy trì hòa bình và an ninh quốc tế.", "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.", "Xây dựng một tổ chức vững mạnh về quân sự, phát triển về kinh tế.", "Thúc đẩy và hỗ trợ các quốc gia phát triển vũ khí hạt nhân."], ans: 0 },
+                    { id: 3, q: "Câu 3. Một trong những mục tiêu hoạt động của tổ chức Liên hợp quốc là", opts: ["Thúc đẩy hợp tác quốc tế.", "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.", "Xây dựng một tổ chức vững mạnh về quân sự, phát triển về kinh tế.", "Thúc đẩy và hỗ trợ các quốc gia phát triển vũ khí hạt nhân."], ans: 0 },
+                    { id: 4, q: "Câu 4. Nội dung nào sau đây phản ánh không đúng mục đích hoạt động của tổ chức Liên hợp quốc?", opts: ["Duy trì hòa bình và an ninh thế giới.", "Hợp tác quốc tế để giải quyết các vấn đề kinh tế, văn hóa, nhân đạo.", "Là trung tâm điều hòa hoạt động của các quốc gia vì mục tiêu chung.", "Giải quyết các tranh chấp, xung đột ở nhiều châu lục bằng biện pháp bạo lực."], ans: 3 },
+                    { id: 5, q: "Câu 5. Sau Chiến tranh thế giới thứ hai, tổ chức nào sau đây trở thành trung tâm điều phối mọi hoạt động của các dân tộc?", opts: ["Tổ chức Liên hợp quốc.", "Tổ chức ASEAN.", "Liên minh EU.", "Tổ chức Vácsava."], ans: 0 },
+                    { id: 6, q: "Câu 6. Theo Hiến chương, Liên hợp quốc hoạt động trên nguyên tắc nào sau đây?", opts: ["Tôn trọng toàn vẹn lãnh thổ và độc lập chính trị của các quốc gia.", "Duy trì hòa bình và an ninh thế giới.", "Thúc đẩy mối quan hệ và tiến hành hợp tác quốc tế.", "Giải quyết các tranh chấp quốc tế bằng biện pháp vũ lực."], ans: 0 },
+                    { id: 7, q: "Câu 7. Nội dung nào sau đây không phản ánh đúng nguyên tắc hoạt động của tổ chức Liên hợp quốc?", opts: ["Không can thiệp vào công việc thuộc thẩm quyền nội bộ của các nước.", "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.", "Tôn trọng các nghĩa vụ quốc tế và luật pháp quốc tế.", "Thúc đẩy việc giải quyết dứt điểm chủ nghĩa phân biệt chủng tộc trên thế giới."], ans: 3 },
+                    { id: 8, q: "Câu 8. Đoạn tư liệu: 'Hiến chương này hoàn toàn không cho phép Liên hợp quốc được can thiệp vào những công việc thực chất thuộc thẩm quyền nội bộ...' phản ánh nguyên tắc nào?", opts: ["Quốc gia tham gia Liên hợp quốc có thể can thiệp vào nội bộ của nhau.", "Không can thiệp vào công việc thuộc thẩm quyền nội bộ của bất cứ quốc gia nào.", "Thực hiện các biện pháp cưỡng chế khi quốc gia không tuân thủ theo quy định.", "Liên hợp quốc được can thiệp vào thẩm quyền nội bộ của các quốc gia."], ans: 1 },
+                    { id: 9, q: "Câu 9. Tổ chức Liên hợp quốc thực hiện vai trò của mình trên lĩnh vực nào sau đây?", opts: ["Bảo đảm quyền con người, phát triển văn hóa và xã hội.", "Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.", "Dùng vũ lực để đàn áp các cuộc bạo loạn, nội chiến diễn ra.", "Thúc đẩy các công ty xuyên quốc gia hợp tác với nhau."], ans: 0 },
+                    { id: 10, q: "Câu 10. Nội dung nào sau đây phản ánh không đúng nguyên tắc hoạt động của tổ chức Liên hợp quốc?", opts: ["Bình đẳng chủ quyền giữa các quốc gia.", "Giải quyết tranh chấp bằng biện pháp hòa bình.", "Không sử dụng vũ lực hoặc đe dọa vũ lực với nhau.", "Có thể can thiệp vào công việc nội bộ của các nước."], ans: 3 },
+                    { id: 11, q: "Câu 11. Tổ chức Liên hợp quốc có vai trò nào sau đây?", opts: ["Duy trì hòa bình, an ninh quốc tế và thúc đẩy phát triển.", "Giải quyết triệt để tất cả các xung đột xảy ra trên thế giới.", "Xóa bỏ hoàn toàn các loại vũ khí hạt nhân trên toàn thế giới.", "Đã xóa bỏ được tình trạng chênh lệch giàu nghèo trên thế giới."], ans: 0 },
+                    { id: 12, q: "Câu 12. Tổ chức Liên hợp quốc không có vai trò nào sau đây?", opts: ["Duy trì hòa bình và an ninh quốc tế.", "Thúc đẩy phát triển kinh tế, văn hóa.", "Góp phần bảo đảm quyền con người.", "Đã xóa bỏ hoàn toàn vũ khí hạt nhân."], ans: 3 },
+                    { id: 13, q: "Câu 13. Nội dung nào sau đây phản ánh không đúng vai trò của tổ chức Liên hợp quốc?", opts: ["Tiến hành giải quyết các tranh chấp và xung đột quốc tế.", "Thúc đẩy mối quan hệ hữu nghị và hợp tác của các nước.", "Giúp đỡ các dân tộc về kinh tế, văn hóa, y tế và nhân đạo.", "Khuyến khích các quốc gia, tổ chức khu vực tự do hành động."], ans: 3 },
+                    { id: 14, q: "Câu 14 (Đề 0801): Tổ chức nào sau đây được thành lập (1945) với mục tiêu thúc đẩy quan hệ hữu nghị giữa các dân tộc trên thế giới?", opts: ["Tổ chức Hiệp ước Bắc Đại Tây Dương.", "Hiệp hội Đông Nam Á.", "Tổ chức Hiệp ước Vácsava.", "Liên hợp quốc."], ans: 3 },
+                    { id: 15, q: "Câu 15 (Đề 0802): Tổ chức nào sau đây được thành lập (1945) với mục tiêu duy trì hòa bình và an ninh quốc tế?", opts: ["Tổ chức Hiệp ước Bắc Đại Tây Dương.", "Hiệp hội Đông Nam Á.", "Tổ chức Hiệp ước Vácsava.", "Liên hợp quốc."], ans: 3 }
+                ]
+            },
+            {
+                lessonName: "BÀI 2. TRẬT TỰ THẾ GIỚI HAI CỰC I-AN-TA",
+                questions: [
+                    { id: 16, q: "Câu 1. Chiến tranh thế giới thứ hai bước vào giai đoạn kết thúc, vấn đề nào sau đây đặt ra cho các nước Đồng minh cần phải giải quyết?", opts: ["Tiêu diệt tận gốc phát xít Đức và quân phiệt Nhật.", "Phân chia quyền lợi giữa các nước thắng trận.", "Phân chia khu vực đóng quân và phạm vi ảnh hưởng của Liên Xô và Mĩ.", "Thành lập tổ chức Liên hợp quốc để duy trì hòa bình thế giới."], ans: 2 },
+                    { id: 17, q: "Câu 2. Chiến tranh thế giới thứ hai bước vào giai đoạn kết thúc, vấn đề nào sau đây không đặt ra cho các nước Đồng minh cần phải giải quyết?", opts: ["Tiêu diệt tận gốc phát xít Đức và quân phiệt Nhật.", "Phân chia quyền lợi giữa các nước thắng trận.", "Tổ chức lại thế giới sau chiến tranh.", "Nhanh chóng đánh bại chủ nghĩa phát xít."], ans: 3 },
+                    { id: 18, q: "Câu 3. Nguyên thủ các quốc gia nào sau đây tham dự Hội nghị Ianta (2-1945)?", opts: ["Liên Xô, Mĩ, Anh.", "Liên Xô, Mĩ, Pháp.", "Hà Lan, Anh, Mĩ.", "Ấn Độ, Anh, Pháp."], ans: 0 },
+                    { id: 19, q: "Câu 4. Quốc gia nào sau đây không tham dự Hội nghị Ianta (2/1945)?", opts: ["Liên Xô.", "Pháp.", "Mĩ.", "Anh."], ans: 1 },
+                    { id: 20, q: "Câu 5. Tháng 2-1945, tại Hội nghị I-an-ta, nguyên thủ ba nước thống nhất", opts: ["thông qua Hiến chương Liên hợp quốc.", "thành lập Tổ chức Liên hợp quốc.", "thành lập khối NATO.", "bảo vệ hòa bình thế giới trước nạn phát xít."], ans: 1 },
+                    { id: 21, q: "Câu 6. Tại hội nghị I-an-ta, nguyên thủ ba nước Liên Xô, Anh, Mĩ đã quyết định", opts: ["thành lập phe Đồng minh chống phát xít để kết thúc chiến tranh.", "thành lập tổ chức Hiệp ước Bắc Đại Tây Dương.", "phân chia thuộc địa tại khu vực châu Phi và Mĩ La Tinh.", "tiêu diệt tận gốc phát xít Đức và quân phiệt Nhật."], ans: 3 },
+                    { id: 22, q: "Câu 7. Trong Hội nghị I-an-ta (2-1945), nguyên thủ ba cường quốc không quyết định nội dung nào sau đây?", opts: ["Thành lập tổ chức Liên hợp quốc.", "Thỏa thuận về đóng quân tại châu Âu và châu Á.", "Phân chia thuộc địa tại khu vực châu Phi và Mĩ La Tinh.", "Tiêu diệt tận gốc phát xít Đức và quân phiệt Nhật."], ans: 2 },
+                    { id: 23, q: "Câu 8. Một trong những quyết định của Hội nghị I-an-ta (2-1945) là", opts: ["Các nước Đồng minh sẽ kéo vào Đông Dương giải giáp quân đội Nhật.", "Phân chia quyền lợi giữa các nước thắng trận.", "Phân chia khu vực đóng quân và phạm vi ảnh hưởng của Liên Xô, Mĩ, Anh.", "Các nước bại trận sẽ mất hết thuộc địa và đền bù chiến phí."], ans: 2 },
+                    { id: 24, q: "Câu 9. Trật tự thế giới mới được hình thành sau Chiến tranh thế giới thứ hai gọi là trật tự", opts: ["thế giới hai cực I-an-ta.", "thế giới đơn cực.", "thế giới đa cực.", "thế giới một cực, nhiều trung tâm."], ans: 0 },
+                    { id: 25, q: "Câu 10. Trong giai đoạn 1945 đến đầu những năm 70 của thế kỉ XX, trật tự thế giới hai cực I-an-ta có đặc điểm nào sau đây?", opts: ["Trật tự được xác lập và phát triển với sự đối đầu giữa Liên Xô và Mĩ.", "Quan hệ giữa hai cực I-an-ta trở nên hòa dịu hơn.", "Liên Xô và Mĩ chấm dứt Chiến tranh lạnh.", "Trật tự hai cực I-an-ta bị xói mòn và tan rã."], ans: 0 },
+                    { id: 26, q: "Câu 11. Từ đầu những năm 70 của thế kỉ XX đến năm 1991, trật tự thế giới hai cực I-an-ta có biểu hiện nào sau đây?", opts: ["Bắt đầu xuất hiện xu thế hòa hoãn Đông - Tây.", "Mĩ tuyên bố chống Liên Xô gây ra cục diện Chiến tranh lạnh.", "Trật tự hai cực I-an-ta được xác lập và phát triển.", "Liên Xô và Mĩ thành lập nhiều khối liên minh về quân sự."], ans: 0 },
+                    { id: 27, q: "Câu 12. Trật tự hai cực I-an-ta sụp đổ xuất phát từ nguyên nhân nào sau đây?", opts: ["Sự chạy đua vũ trang làm suy giảm thế mạnh kinh tế của Liên Xô và Mĩ.", "Các cuộc nổi dậy của người da màu khiến Mĩ phải ngừng chạy đua.", "Liên Xô phải tập trung đối phó với phong trào li khai trong nước.", "Chủ nghĩa khủng bố đe dọa đến an ninh nước Mĩ."], ans: 0 },
+                    { id: 28, q: "Câu 13. Sự kiện nào sau đây đánh dấu chấm dứt sự tồn tại của trật tự thế giới hai cực I-an-ta?", opts: ["Khối SEV giải thể (1991).", "Khối NATO được thành lập (1949).", "Khủng bố ở Mĩ (2001).", "Sự tan rã của Liên Xô (1991)."], ans: 3 },
+                    { id: 29, q: "Câu 14. Trật tự hai cực I-an-ta sụp đổ có tác động nào sau đây đối với tình hình thế giới?", opts: ["Dẫn đến cục diện hai cực, hai phe được xác lập.", "Tạo điều kiện để kết thúc Chiến tranh thế giới thứ hai.", "Mở ra những điều kiện để giải quyết hòa bình các cuộc tranh chấp ở nhiều nơi.", "Đưa đến sự căng thẳng, đối đầu giữa hai cường quốc."], ans: 2 },
+                    { id: 30, q: "Câu 15. Trật tự hai cực I-an-ta sụp đổ, một trật tự thế giới mới được hình thành theo xu thế", opts: ["đa cực.", "đơn cực.", "ba cực.", "hai cực."], ans: 0 },
+                    { id: 31, q: "Câu 16. Đặc trưng của Trật tự thế giới hai cực Ianta giai đoạn từ năm 1945 đến đầu những năm 70 của thế kỉ XX là", opts: ["được xác lập và phát triển.", "chưa được hình thành.", "suy yếu và đi đến sụp đổ.", "suy yếu nhưng vẫn duy trì."], ans: 0 },
+                    { id: 32, q: "Câu 17. Đặc trưng của Trật tự thế giới hai cực Ianta giai đoạn từ đầu những năm 70 của thế kỉ XX đến năm 1991 là", opts: ["xác lập và phát triển.", "chưa được hình thành.", "suy yếu và đi đến sụp đổ.", "suy yếu nhưng vẫn duy trì."], ans: 2 },
+                    { id: 33, q: "Câu 18. Nội dung nào sau đây không phải là nhân tố tác động đến sự hình thành trật tự thế giới mới sau khi Chiến tranh lạnh chấm dứt?", opts: ["Thực lực kinh tế, chính trị, quân sự của các cường quốc.", "Sự lớn mạnh của các lực lượng cách mạng thế giới.", "Sự phát triển của cuộc cách mạng khoa học - công nghệ.", "Sự lớn mạnh và ảnh hưởng của hệ thống xã hội chủ nghĩa."], ans: 3 },
+                    { id: 34, q: "Câu 19. Nội dung nào không phản ánh đúng lý do trật tự hai cực Ianta sụp đổ?", opts: ["Cuộc chạy đua vũ trang khiến cho Liên Xô và Mĩ bị suy yếu.", "Chiến tranh thế giới thứ hai kết thúc.", "Tác động của xu thế hòa hoãn trong quan hệ Đông Âu và Tây Âu.", "Nhiều quốc gia độc lập ra đời làm xói mòn trật tự hai cực."], ans: 1 },
+                    { id: 35, q: "Câu 20. Nội dung nào không phản ánh đúng tác động của sự sụp đổ Trật tự thế giới hai cực Ianta?", opts: ["Thế giới phát triển theo xu thế đa cực.", "Nhiều quốc gia dần khẳng định vị thế trong quan hệ quốc tế.", "Khiến cho quan hệ quốc tế ngày càng căng thẳng.", "Tạo điều kiện giải quyết xung đột nhiều khu vực trên thế giới."], ans: 2 }
+                ]
+            },
+            {
+                lessonName: "BÀI 3. TRẬT TỰ THẾ GIỚI SAU CHIẾN TRANH LẠNH",
+                questions: [
+                    { id: 36, q: "Câu 1. Sau khi kết thúc Chiến tranh lạnh, thế giới phát triển theo xu thế nào sau đây?", opts: ["Xu thế đối thoại, hợp tác trong quan hệ quốc tế.", "Các quốc gia chạy đua vũ trang, thành lập nhiều khối quân sự.", "Thế giới được chi phối bởi hai cường quốc Liên Xô và Mĩ.", "Nhiều cuộc xung đột, nội chiến diễn ra hầu khắp thế giới."], ans: 0 },
+                    { id: 37, q: "Câu 2. Nội dung nào sau đây không phản ánh đúng xu thế phát triển của thế giới sau Chiến tranh lạnh?", opts: ["Xu thế lấy phát triển kinh tế làm trung tâm.", "Xu thế đối thoại, hợp tác trong quan hệ quốc tế.", "Xu thế hai cực, nhiều trung tâm.", "Xu thế toàn cầu hóa diễn ra mạnh mẽ."], ans: 2 },
+                    { id: 38, q: "Câu 3. Sau khi Chiến tranh lạnh kết thúc, xu thế toàn cầu hóa diễn ra mạnh mẽ với biểu hiện nào sau đây?", opts: ["Sự ra đời của các tổ chức liên kết tài chính, quân sự.", "Sự mở rộng của các công ty xuyên quốc gia.", "Sự điều chỉnh chiến lược của các nước, tập trung phát triển kinh tế.", "Sự chạy đua vũ trang giữa Liên Xô và Mĩ."], ans: 1 },
+                    { id: 39, q: "Câu 4. Nội dung nào sau đây phản ánh đúng xu thế phát triển của thế giới sau Chiến tranh lạnh lấy phát triển kinh tế làm trung tâm?", opts: ["Kinh tế trở thành nhân tố quyết định sức mạnh tổng hợp của từng quốc gia.", "Kinh tế và quân sự là hai nhân tố quyết định cho sự phát triển.", "Kinh tế giữ vai trò hỗ trợ tạo điều kiện cho quân sự.", "Kinh tế giữ vai trò thứ yếu để đảm bảo sự phát triển."], ans: 0 },
+                    { id: 40, q: "Câu 5. Nội dung nào sau đây phản ánh đúng khái niệm đa cực?", opts: ["Một trật tự thế giới với sự vươn lên nổi trội của Mĩ.", "Các quốc gia điều chỉnh chiến lược, lấy kinh tế làm trung tâm.", "Hai cường quốc Mĩ và Trung Quốc chi phối toàn bộ.", "Trạng thái địa - chính trị toàn cầu với nhiều trung tâm quyền lực chi phối."], ans: 3 },
+                    { id: 41, q: "Câu 6. Nội dung nào sau đây phản ánh không đúng khái niệm đa cực?", opts: ["Trạng thái địa - chính trị toàn cầu với nhiều trung tâm quyền lực chi phối.", "Không có một trung tâm quyền lực thống trị.", "Trung tâm quyền lực duy nhất là Mĩ thống trị thế giới.", "Nhiều quốc gia tạo ra thế cân bằng về kinh tế, chính trị, quân sự toàn cầu."], ans: 2 },
+                    { id: 42, q: "Câu 7. Một trong những biểu hiện của xu thế đa cực là", opts: ["vai trò của các trung tâm kinh tế, tài chính quốc tế và khu vực ngày càng lớn.", "cuộc cách mạng công nghiệp lần thứ hai dẫn đến xu thế liên kết khu vực.", "các tổ chức liên kết quân sự xuất hiện ngày càng nhiều.", "sự vươn lên, trỗi dậy của Trung Quốc có khả năng thống trị thế giới."], ans: 0 },
+                    { id: 43, q: "Câu 8. Biểu hiện nào sau đây không phải của xu thế đa cực sau khi Chiến tranh lạnh kết thúc?", opts: ["Mĩ suy giảm sức mạnh trong tương quan so sánh với các cường quốc khác.", "Các trung tâm quyền lực khẳng định sức mạnh về kinh tế, chính trị, quân sự.", "Vai trò của các trung tâm, tổ chức kinh tế thế giới và khu vực ngày càng lớn.", "Nhật Bản nỗ lực vươn lên, giữ vai trò duy nhất chi phối quan hệ quốc tế."], ans: 3 },
+                    { id: 44, q: "Câu 9. Nội dung nào sau đây phản ánh đúng biểu hiện của xu thế đa cực?", opts: ["Các trung tâm quyền lực khẳng định sức mạnh về kinh tế, chính trị, quân sự.", "Cuộc cách mạng công nghiệp lần thứ hai dẫn đến xu thế liên kết khu vực.", "Các tổ chức liên kết quân sự xuất hiện ngày càng nhiều.", "Sự vươn lên, trỗi dậy của Trung Quốc có khả năng thống trị thế giới."], ans: 0 },
+                    { id: 45, q: "Câu 10. Xu thế đa cực sau Chiến tranh lạnh có biểu hiện nào sau đây?", opts: ["Mĩ suy giảm sức mạnh trong tương quan so sánh với các cường quốc khác.", "Cuộc cách mạng công nghiệp lần thứ hai dẫn đến xu thế liên kết khu vực.", "Các tổ chức liên kết quân sự xuất hiện ngày càng nhiều.", "Sự vươn lên, trỗi dậy của Trung Quốc có khả năng thống trị thế giới."], ans: 0 },
+                    { id: 46, q: "Câu 11. Sau Chiến tranh lạnh, Mĩ bị suy giảm sức mạnh tương đối trong tương quan so sánh với các cường quốc khác là biểu hiện của", opts: ["xu thế đa cực.", "xu thế đơn cực.", "xu thế hai cực.", "xu thế toàn cầu hóa."], ans: 0 },
+                    { id: 47, q: "Câu 12. Sau Chiến tranh lạnh, các trung tâm quyền lực ngày càng vươn lên, khẳng định sức mạnh về kinh tế, quân sự, chính trị đối với thế giới là đặc điểm của", opts: ["xu thế đa cực.", "xu thế đơn cực.", "xu thế hai cực.", "xu thế toàn cầu hóa."], ans: 0 },
+                    { id: 48, q: "Câu 13. Một trong những biểu hiện của xu thế phát triển của thế giới diễn ra sau Chiến tranh lạnh là", opts: ["xu thế đa cực với sự vươn lên của nhiều quốc gia.", "xu thế một cực trong đó Mĩ là siêu cường duy nhất.", "các cuộc nội chiến, chiến tranh vùng vịnh diễn ra khắp nơi.", "xu thế hai cực với sự chi phối bởi Mĩ và Liên Bang Nga."], ans: 0 },
+                    { id: 49, q: "Câu 14. Một trong những đặc điểm trong quan hệ quốc tế sau khi Chiến tranh lạnh kết thúc là", opts: ["Xu thế toàn cầu hóa diễn ra mạnh mẽ.", "Các quốc gia chạy đua vũ trang, thành lập nhiều khối quân sự.", "Thế giới được chi phối bởi hai cường quốc Liên Xô và Mĩ.", "Nhiều cuộc xung đột, nội chiến diễn ra hầu khắp trên thế giới."], ans: 0 },
+                    { id: 50, q: "Câu 15. Nội dung nào không phản ánh xu thế phát triển của thế giới sau chiến tranh lạnh?", opts: ["Sự vươn lên của nhiều trung tâm kinh tế, quyền lực trên thế giới.", "Các cường quốc tập trung chạy đua vũ trang, chuẩn bị chiến tranh chia lại thế giới.", "Các quốc gia điều chỉnh quan hệ theo hướng đối thoại, hợp tác.", "Các tổ chức liên kết thương mại, tài chính có vai trò lớn."], ans: 1 },
+                    { id: 51, q: "Câu 16. Một trong những xu thế phát triển của thế giới sau chiến tranh lạnh là", opts: ["lấy phát triển văn hóa làm trọng tâm.", "tập trung chạy đua vũ trang.", "lấy phát triển kinh tế làm trọng tâm.", "chú trọng hợp tác song phương hơn đa phương."], ans: 2 }
+                ]
+            },
+            {
+                lessonName: "BÀI 4. HIỆP HỘI CÁC QUỐC GIA ĐÔNG NAM Á (ASEAN)",
+                questions: [
+                    { id: 52, q: "Câu 1. Nội dung nào sau đây phản ánh đúng hoàn cảnh ra đời của tổ chức Hiệp hội các quốc gia Đông Nam Á (ASEAN)?", opts: ["Nhu cầu liên kết, hợp tác giữa các nước để cùng phát triển.", "Xu thế toàn cầu hóa lan rộng và ảnh hưởng đến các nước.", "Nhu cầu liên kết hợp tác đấu tranh để giải phóng dân tộc.", "Tác động ngày càng lớn của cuộc cách mạng công nghiệp 4.0."], ans: 0 },
+                    { id: 53, q: "Câu 2. Nội dung nào sau đây phản ánh không đúng bối cảnh ra đời của tổ chức Hiệp hội các quốc gia Đông Nam Á (ASEAN)?", opts: ["Sau khi giành độc lập phát triển kinh tế trong điều kiện khó khăn.", "Muốn hạn chế ảnh hưởng của các cường quốc từ bên ngoài.", "Xu hướng liên kết khu vực và thế giới đang diễn ra mạnh mẽ.", "Nhằm hạn chế tác động của cuộc Chiến tranh thế giới thứ hai."], ans: 3 },
+                    { id: 54, q: "Câu 3. Nội dung nào sau đây phản ánh không đúng mục đích của tổ chức ASEAN?", opts: ["Thúc đẩy hoà bình, ổn định khu vực.", "Thúc đẩy tăng trưởng kinh tế, tiến bộ xã hội.", "Hợp tác khai thác nguồn tài nguyên biển.", "Tích cực giúp đỡ lẫn nhau về kinh tế, văn hoá."], ans: 2 },
+                    { id: 55, q: "Câu 4. Hiệp hội các quốc gia Đông Nam Á (ASEAN) ra đời trong bối cảnh nào sau đây?", opts: ["Xu hướng khu vực hóa trên thế giới ngày càng phát triển.", "Xu thế toàn cầu hóa ngày càng diễn ra mạnh mẽ.", "Chiến tranh lạnh giữa Mĩ và Liên Xô đã kết thúc.", "Xu thế hòa hoãn Đông - Tây đã xuất hiện."], ans: 0 },
+                    { id: 56, q: "Câu 5. Yếu tố khách quan dẫn tới sự ra đời của tổ chức ASEAN là", opts: ["nhu cầu giúp đỡ nhau để giải quyết khó khăn của các nước.", "sự gần gũi về địa lí, tương đồng về lịch sử, kinh tế, văn hóa.", "nhu cầu hạn chế ảnh hưởng của Mĩ và chủ nghĩa xã hội.", "sự xuất hiện những tổ chức hợp tác khu vực trên thế giới."], ans: 3 },
+                    { id: 57, q: "Câu 6. Một trong những mục tiêu của tổ chức ASEAN là", opts: ["thúc đẩy phát triển văn hóa.", "duy trì hòa bình, an ninh khu vực.", "xây dựng khu vực thịnh vượng chung.", "giải quyết mâu thuẫn trên Biển Đông."], ans: 1 },
+                    { id: 58, q: "Câu 7. Tổ chức ASEAN ra đời không nhằm mục đích nào sau đây?", opts: ["Hợp tác cùng phát triển về kinh tế, giáo dục, văn hóa, xã hội.", "Thúc đẩy tăng trưởng kinh tế khu vực Đông Nam Á.", "Xây dựng khu vực Đông Nam Á hòa bình, thịnh vượng.", "Liên minh quân sự chống lại chủ nghĩa thực dân."], ans: 3 },
+                    { id: 59, q: "Câu 8. Năm 1995, quốc gia nào sau đây trở thành thành viên thứ 7 của tổ chức ASEAN?", opts: ["Thái Lan.", "Việt Nam.", "Singapore.", "Philippines."], ans: 1 },
+                    { id: 60, q: "Câu 9. Năm 1967, khu vực Đông Nam Á diễn ra sự kiện nào sau đây?", opts: ["Tổ chức ASEAN được thành lập.", "Việt Nam tuyên bố độc lập.", "Mĩ xâm lược Lào.", "Nước Cộng hòa In-đô-nê-xia ra đời."], ans: 0 },
+                    { id: 61, q: "Câu 10. Năm 1999, quốc gia nào sau đây trở thành thành viên thứ 10 của tổ chức ASEAN?", opts: ["Thái Lan.", "Campuchia.", "Lào.", "Myanmar."], ans: 1 },
+                    { id: 62, q: "Câu 11. Quốc gia nào dưới đây là một trong các thành viên sáng lập ASEAN năm 1967?", opts: ["Việt Nam.", "Thái Lan.", "Nhật Bản.", "Myanmar."], ans: 1 },
+                    { id: 63, q: "Câu 12. Quốc gia nào dưới đây không phải là thành viên sáng lập ASEAN năm 1967?", opts: ["Malaixia.", "Philipin.", "Brunây.", "Xingapo."], ans: 2 },
+                    { id: 64, q: "Câu 13. Quốc gia nào sau đây không phải là thành viên của tổ chức ASEAN?", opts: ["Thái Lan.", "Việt Nam.", "Campuchia.", "Nhật Bản."], ans: 3 },
+                    { id: 65, q: "Câu 14. Việt Nam gia nhập tổ chức ASEAN trong bối cảnh nào sau đây?", opts: ["Chiến tranh lạnh bắt đầu diễn ra.", "Xu thế toàn cầu hóa mới xuất hiện.", "Chiến tranh lạnh kết thúc.", "Chiến tranh thế giới thứ hai kết thúc."], ans: 2 }
+                ]
+            },
+            {
+                lessonName: "BÀI 5. CỘNG ĐỒNG ASEAN: TỪ Ý TƯỞNG ĐẾN HIỆN THỰC",
+                questions: [
+                    { id: 66, q: "Câu 1. Năm 2015, sự kiện quan trọng nào sau đây diễn ra ở Đông Nam Á?", opts: ["Hiệp hội các quốc gia Đông Nam Á thành lập.", "ASEAN kết nạp thành viên thứ 6.", "ASEAN kết nạp thành viên cuối cùng.", "Cộng đồng ASEAN ra đời."], ans: 3 },
+                    { id: 67, q: "Câu 2. Văn bản đầu tiên đề xuất xây dựng một Cộng đồng ASEAN có nhận thức về mối quan hệ lịch sử, gắn bó với nhau là", opts: ["Tuyên bố Bangkok năm 1967.", "Tầm nhìn ASEAN 2020 năm 1997.", "Tuyên bố Kuala Lumpur năm 2015.", "Thỏa ước Bali năm 2003."], ans: 1 },
+                    { id: 68, q: "Câu 3. Mục tiêu tổng quát xây dựng Cộng đồng ASEAN là xây dựng một", opts: ["tổ chức liên Chính phủ có sự liên kết sâu rộng.", "thị trường cạnh tranh độc lập, lành mạnh.", "khu phòng thủ chung có vũ khí hiện đại.", "cơ chế pháp lý, bản hiến pháp chung."], ans: 0 },
+                    { id: 69, q: "Câu 4. Một trong những trụ cột của cộng đồng ASEAN là", opts: ["Cộng đồng Y tế - Giáo dục.", "Cộng đồng Chính trị - An ninh.", "Cộng đồng Năng lượng - Tài chính.", "Cộng đồng Năng lượng - Nguyên Tử."], ans: 1 },
+                    { id: 70, q: "Câu 5. Cộng đồng ASEAN phát triển không dựa trên trụ cột nào sau đây?", opts: ["Cộng đồng Kinh tế.", "Cộng đồng Chính trị - An ninh.", "Cộng đồng Văn hóa - Xã hội.", "Cộng đồng an sinh - xã hội."], ans: 3 },
+                    { id: 71, q: "Câu 6. Nội dung nào sau đây phản ánh không đúng thách thức của Cộng đồng ASEAN?", opts: ["Sự đa dạng về chế độ chính trị, những mâu thuẫn trong quan hệ song phương.", "Khoảng cách kinh tế, sự chênh lệch trình độ phát triển.", "An ninh phi truyền thống, ô nhiễm môi trường và tội phạm xuyên quốc gia.", "Mức độ liên kết của ba trụ cột: chính trị - an ninh, kinh tế và văn hóa - xã hội."], ans: 3 },
+                    { id: 72, q: "Câu 7. Nội dung nào sau đây phản ánh thách thức bên ngoài tác động đến Cộng đồng ASEAN?", opts: ["Sự đa dạng về chế độ chính trị, không đồng nhất về văn hóa.", "Khoảng cách kinh tế, sự chênh lệch trình độ phát triển giữa các nước.", "Sự cạnh tranh chiến lược của các nước lớn và sự thay đổi cấu trúc địa chính trị.", "Tình hình chính trị một số nơi còn phức tạp."], ans: 2 },
+                    { id: 73, q: "Câu 8. Nội dung nào sau đây phản ánh không đúng triển vọng của Cộng đồng ASEAN?", opts: ["Mức độ liên kết chính trị - an ninh, kinh tế, văn hóa - xã hội.", "Thể chế, chính sách và cơ chế hợp tác của Cộng đồng ASEAN.", "Vị thế ngày càng được nâng cao trên trường quốc tế.", "Sự đa dạng về chế độ chính trị, sự thay đổi cấu trúc địa chính trị."], ans: 3 },
+                    { id: 74, q: "Câu 9. Cộng đồng ASEAN ra đời không nhằm mục tiêu nào sau đây?", opts: ["Liên minh quân sự chặt chẽ.", "Liên kết về chính trị - an ninh.", "Liên kết về văn hóa - xã hội.", "Liên kết về kinh tế."], ans: 0 },
+                    { id: 75, q: "Câu 10. Nội dung nào sau đây không phản ánh triển vọng của Cộng đồng ASEAN?", opts: ["Vị thế của Cộng đồng ASEAN ngày càng quan trọng trên thế giới.", "Cơ chế hợp tác giữa các nước ASEAN ngày càng hoàn thiện.", "Các nước ASEAN ngày càng liên kết chặt chẽ trên nhiều lĩnh vực.", "Các nước Đông Nam Á có cùng thể chế chính trị."], ans: 3 }
+                ]
+            }
+        ];
+
+        const userAnswers = {};
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            const grid = document.getElementById('question-grid');
+            container.innerHTML = '';
+            grid.innerHTML = '';
+
+            let globalIndex = 1;
+
+            lessonsData.forEach(lesson => {
+                const lessonDiv = document.createElement('div');
+                lessonDiv.className = 'space-y-4';
+                
+                const headerTitle = document.createElement('h2');
+                headerTitle.className = 'text-xl font-bold text-blue-800 bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600 shadow-sm';
+                headerTitle.innerText = lesson.lessonName;
+                lessonDiv.appendChild(headerTitle);
+
+                lesson.questions.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-6 rounded-2xl shadow-md';
+                    card.id = `q-card-${item.id}`;
+                    
+                    let html = `
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-full">${lesson.lessonName}</span>
+                            <span class="text-xs text-slate-400 font-medium">Câu ${globalIndex}</span>
+                        </div>
+                        <h3 class="font-semibold text-slate-800 mb-4 text-base">${item.q}</h3>
+                        <div class="space-y-2" id="options-${item.id}">
+                    `;
+
+                    item.opts.forEach((opt, optIdx) => {
+                        html += `
+                            <label class="flex items-start p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition" id="lbl-${item.id}-${optIdx}">
+                                <input type="radio" name="question-${item.id}" value="${optIdx}" onchange="selectAnswer(${item.id}, ${optIdx})" class="mt-1 mr-3">
+                                <span class="text-sm text-slate-700">${String.fromCharCode(65 + optIdx)}. ${opt}</span>
+                            </label>
+                        `;
+                    });
+
+                    html += `</div>`;
+                    card.innerHTML = html;
+                    lessonDiv.appendChild(card);
+
+                    // Grid Button
+                    const gridBtn = document.createElement('button');
+                    gridBtn.className = 'w-10 h-10 rounded-lg font-semibold text-sm bg-slate-200 text-slate-700 flex items-center justify-center transition hover:bg-slate-300';
+                    gridBtn.id = `grid-btn-${item.id}`;
+                    gridBtn.innerText = globalIndex;
+                    gridBtn.onclick = () => {
+                        document.getElementById(`q-card-${item.id}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    };
+                    grid.appendChild(gridBtn);
+
+                    globalIndex++;
+                });
+
+                container.appendChild(lessonDiv);
+            });
+        }
+
+        function selectAnswer(qId, optIdx) {
+            userAnswers[qId] = optIdx;
+            const gridBtn = document.getElementById(`grid-btn-${qId}`);
+            gridBtn.className = 'w-10 h-10 rounded-lg font-semibold text-sm bg-blue-500 text-white flex items-center justify-center transition shadow';
+        }
+
+        function toggleGrid() {
+            const grid = document.getElementById('question-grid');
+            grid.classList.toggle('hidden');
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            let total = 0;
+
+            lessonsData.forEach(lesson => {
+                lesson.questions.forEach(item => {
+                    total++;
+                    const userAns = userAnswers[item.id];
+                    const gridBtn = document.getElementById(`grid-btn-${item.id}`);
+                    
+                    // Reset styles
+                    for (let i = 0; i < item.opts.length; i++) {
+                        const lbl = document.getElementById(`lbl-${item.id}-${i}`);
+                        lbl.className = 'flex items-start p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition';
+                    }
+
+                    if (userAns !== undefined) {
+                        if (userAns === item.ans) {
+                            score++;
+                            gridBtn.className = 'w-10 h-10 rounded-lg font-semibold text-sm bg-green-500 text-white flex items-center justify-center transition shadow';
+                            document.getElementById(`lbl-${item.id}-${userAns}`).className += ' correct-answer';
+                        } else {
+                            gridBtn.className = 'w-10 h-10 rounded-lg font-semibold text-sm bg-red-500 text-white flex items-center justify-center transition shadow';
+                            document.getElementById(`lbl-${item.id}-${userAns}`).className += ' incorrect-answer';
+                            document.getElementById(`lbl-${item.id}-${item.ans}`).className += ' correct-answer';
+                        }
+                    } else {
+                        gridBtn.className = 'w-10 h-10 rounded-lg font-semibold text-sm bg-slate-300 text-slate-500 flex items-center justify-center transition';
+                        document.getElementById(`lbl-${item.id}-${item.ans}`).className += ' correct-answer';
+                    }
+                });
+            });
+
+            document.getElementById('score-display').innerText = `Kết quả: ${score} / ${total} câu đúng`;
+        }
+
+        window.onload = renderQuiz;
+    </script>
+</body>
+</html>
